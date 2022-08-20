@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "642491688196",
+    "firebase_url": "https://ocms-7b026-default-rtdb.firebaseio.com",
+    "project_id": "ocms-7b026",
+    "storage_bucket": "ocms-7b026.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:642491688196:android:fc319dcf235840946bdc51",
+        "android_client_info": {
+          "package_name": "com.example.ocms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "642491688196-9ighc969ongtmcnaku3gg2ubnrghapl6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFgu4fsBH4jevVHMcU046iZw2bhIn535g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "642491688196-9ighc969ongtmcnaku3gg2ubnrghapl6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

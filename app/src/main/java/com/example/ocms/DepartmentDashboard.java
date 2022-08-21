@@ -43,8 +43,8 @@ public class DepartmentDashboard extends AppCompatActivity {
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(DepartmentDashboard.this));
 
-//        getUser();
-//        getAllFood();
+        getUser();
+        getAllFood();
 
     }
 

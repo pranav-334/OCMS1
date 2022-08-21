@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-//import com.bumptech.glide.Glide;
+import com.bumptech.glide.Glide;
 import com.example.ocms.R;
 import com.example.ocms.model.complaint;
 
@@ -37,7 +37,7 @@ public class ShowAllComplaintAdapter extends RecyclerView.Adapter<ShowAllComplai
     @Override
     public void onBindViewHolder(@NonNull viewholder holder, int position) {
         complaint complaint = mList.get(position);
-//        Glide.with(mContext).load(complaint.getImage()).into(holder.iv_complaintImage);
+        Glide.with(mContext).load(complaint.getImage()).into(holder.iv_complaintImage);
         holder.tv_department.setText(complaint.getDepartment());
         holder.tv_description.setText(complaint.getDescription());
         holder.tv_status.setText("status : " + complaint.getStatus());

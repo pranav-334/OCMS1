@@ -28,6 +28,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.annotation.GlideModule;
 import com.example.ocms.adapter.ShowAllComplaintAdapter;
 import com.example.ocms.model.UserModel;
 import com.example.ocms.model.complaint;
@@ -50,7 +51,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 
-//import com.bumptech.glide.Glide;
+import com.bumptech.glide.Glide;
 
 //import com.google.firebase.FirebaseApp;
 //import com.google.firebase.database.DatabaseReference;
@@ -181,53 +182,52 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
-//    @GlideModule
-//    private void uploadImage() {
-//        final ProgressDialog pd = new ProgressDialog(MainActivity.this);
-//        pd.setMessage("Uploading...");
-//        pd.show();
-//        if (imageUri != null) {
-//            final StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
-//            uploadTask = fileReference.putFile(imageUri);
-//            uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-//                @Override
-//                public Task<Uri> then(@NonNull Task task) throws Exception {
-//                    if (!task.isSuccessful()) {
-//                        throw task.getException();
-//                    }
-//                    return fileReference.getDownloadUrl();
-//                }
-//            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-//                @Override
-//                public void onComplete(@NonNull Task<Uri> task) {
-//                    if (task.isSuccessful()) {
-//                        try {
-//                            Uri downloadingUri = task.getResult();
-//                            Log.d("TAG", "onComplete: uri completed");
-//                            String mUri = downloadingUri.toString();
-//                            imageString = mUri;
-////                            Glide.with(MainActivity.this).load(imageUri).into(iv_complaintImage);
-//                        } catch (Exception e) {
-//                            Log.d("TAG1", "error Message: " + e.getMessage());
-//                            Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                        }
-//                        pd.dismiss();
-//                    } else {
-//                        Toast.makeText(MainActivity.this, "Failed here", Toast.LENGTH_SHORT).show();
-//                        pd.dismiss();
-//                    }
-//                }
-//            }).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                    pd.dismiss();
-//                }
-//            });
-//        } else {
-//            Toast.makeText(MainActivity.this, "No image Selected", Toast.LENGTH_SHORT).show();
-//        }
-//    }
+    private void uploadImage() {
+        final ProgressDialog pd = new ProgressDialog(MainActivity.this);
+        pd.setMessage("Uploading...");
+        pd.show();
+        if (imageUri != null) {
+            final StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
+            uploadTask = fileReference.putFile(imageUri);
+            uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+                    return fileReference.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        try {
+                            Uri downloadingUri = task.getResult();
+                            Log.d("TAG", "onComplete: uri completed");
+                            String mUri = downloadingUri.toString();
+                            imageString = mUri;
+//                            Glide.with(MainActivity.this).load(imageUri).into(iv_complaintImage);
+                        } catch (Exception e) {
+                            Log.d("TAG1", "error Message: " + e.getMessage());
+                            Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                        pd.dismiss();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Failed here", Toast.LENGTH_SHORT).show();
+                        pd.dismiss();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    pd.dismiss();
+                }
+            });
+        } else {
+            Toast.makeText(MainActivity.this, "No image Selected", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             if (uploadTask != null && uploadTask.isInProgress()) {
                 Toast.makeText(MainActivity.this, "Upload in progress", Toast.LENGTH_SHORT).show();
             } else {
-//                uploadImage();
+                uploadImage();
             }
         }
     }
@@ -285,17 +285,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         complaint.setDescription(complaintDescription);
         complaint.setImage(imageString);
 
-        reference.push().setValue(complaint).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                progressDialog.dismiss();
-                if (task.isSuccessful()) {
-                    getAllFood();
-                    Toast.makeText(MainActivity.this, "Complaint Added Successfully", Toast.LENGTH_SHORT).show();
-                    imageString = "";
-                } else {
-                    Toast.makeText(MainActivity.this, "Complaint Created Failed", Toast.LENGTH_SHORT).show();
-                }
+        reference.push().setValue(complaint).addOnCompleteListener(task -> {
+            progressDialog.dismiss();
+            if (task.isSuccessful()) {
+                getAllFood();
+                Toast.makeText(MainActivity.this, "Complaint Added Successfully", Toast.LENGTH_SHORT).show();
+                imageString = "";
+            } else {
+                Toast.makeText(MainActivity.this, "Complaint Created Failed", Toast.LENGTH_SHORT).show();
             }
         });
     }

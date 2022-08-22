@@ -19,18 +19,8 @@ public class Dashboard extends AppCompatActivity {
         btn_user = findViewById(R.id.btn_user);
         btn_department = findViewById(R.id.btn_department);
 
-        btn_user.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Dashboard.this, RegisterActivity.class));
-            }
-        });
-        btn_department.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Dashboard.this, DepartmentRegister.class));
-            }
-        });
+        btn_user.setOnClickListener(v -> startActivity(new Intent(Dashboard.this, RegisterActivity.class)));
+        btn_department.setOnClickListener(v -> startActivity(new Intent(Dashboard.this, DepartmentRegister.class)));
 
     }
 }

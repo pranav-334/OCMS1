@@ -140,12 +140,7 @@ public class NewComplaintFragment extends Fragment implements AdapterView.OnItem
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
 
         fab_createFood = view.findViewById(R.id.fab_createFood);
-        fab_createFood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createDialog();
-            }
-        });
+        fab_createFood.setOnClickListener(v -> createDialog());
 
         return view;
     }
@@ -294,17 +289,14 @@ public class NewComplaintFragment extends Fragment implements AdapterView.OnItem
         complaint.setDescription(complaintDescription);
         complaint.setImage(imageString);
 
-        reference.push().setValue(complaint).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                progressDialog.dismiss();
-                if (task.isSuccessful()) {
-                    getAllFood();
-                    Toast.makeText(getContext(), "Complaint Added Successfully", Toast.LENGTH_SHORT).show();
-                    imageString = "";
-                } else {
-                    Toast.makeText(getContext(), "Complaint Created Failed", Toast.LENGTH_SHORT).show();
-                }
+        reference.push().setValue(complaint).addOnCompleteListener(task -> {
+            progressDialog.dismiss();
+            if (task.isSuccessful()) {
+                getAllFood();
+                Toast.makeText(getContext(), "Complaint Added Successfully", Toast.LENGTH_SHORT).show();
+                imageString = "";
+            } else {
+                Toast.makeText(getContext(), "Complaint Created Failed", Toast.LENGTH_SHORT).show();
             }
         });
     }

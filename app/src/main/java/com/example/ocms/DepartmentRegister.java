@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 public class DepartmentRegister extends AppCompatActivity {
@@ -60,19 +61,9 @@ public class DepartmentRegister extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
-        tv_loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(DepartmentRegister.this, DepartmentLogin.class));
-            }
-        });
+        tv_loginBtn.setOnClickListener(v -> startActivity(new Intent(DepartmentRegister.this, DepartmentLogin.class)));
 
-        btn_Register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PerformAuth();
-            }
-        });
+        btn_Register.setOnClickListener(v -> PerformAuth());
 
     }
 
@@ -104,46 +95,40 @@ public class DepartmentRegister extends AppCompatActivity {
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
 
-            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        progressDialog.dismiss();
+            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    progressDialog.dismiss();
 
-                        FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                        String userId = firebaseUser.getUid();
+                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                    String userId = firebaseUser.getUid();
 
-                        reference = FirebaseDatabase.getInstance().getReference().child(RegisterActivity.DEPARTMENT).child(userId);
-//                        HashMap<String, String> hashMap = new HashMap<>();
-//                        hashMap.put("id", userId);
-//                        hashMap.put("username", username);
-//                        hashMap.put("email", email);
-//                        hashMap.put("password", password);
+                    reference = FirebaseDatabase.getInstance().getReference().child(RegisterActivity.DEPARTMENT).child(userId);
+                        HashMap<String, String> hashMap = new HashMap<>();
+                        hashMap.put("id", userId);
+                        hashMap.put("username", username);
+                        hashMap.put("email", email);
+                        hashMap.put("password", password);
 //                        hashMap.put("address", address);
-//                        hashMap.put("phoneNumber", phoneNumber);
+                        hashMap.put("phoneNumber", phoneNumber);
 
-                        DepartmentUser model = new DepartmentUser();
-                        model.setPhoneNumber(phoneNumber);
-                        model.setEmail(email);
-                        model.setPassword(password);
-                        model.setId(userId);
-                        model.setUserName(username);
+                    DepartmentUser model = new DepartmentUser();
+                    model.setPhoneNumber(phoneNumber);
+                    model.setEmail(email);
+                    model.setPassword(password);
+                    model.setId(userId);
+                    model.setUserName(username);
 
-                        reference.setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    sendUserToMainActivity();
-                                }
-                            }
-                        });
+                    reference.setValue(model).addOnCompleteListener(task1 -> {
+                        if (task1.isSuccessful()) {
+                            sendUserToMainActivity();
+                        }
+                    });
 
 
-                        Toast.makeText(DepartmentRegister.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                    } else {
-                        progressDialog.dismiss();
-                        Toast.makeText(DepartmentRegister.this, "Registration Failed", Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(DepartmentRegister.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                } else {
+                    progressDialog.dismiss();
+                    Toast.makeText(DepartmentRegister.this, "Registration Failed", Toast.LENGTH_SHORT).show();
                 }
             });
         }

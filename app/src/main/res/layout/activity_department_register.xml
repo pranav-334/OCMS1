@@ -43,7 +43,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:hint="Username"
+            android:hint="@string/Username"
+            android:minHeight="48dp"
             android:textColor="@color/textColor"
             android:textSize="16sp" />
 
@@ -52,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="Email"
+            android:hint="@string/Email"
             android:textColor="@color/textColor"
             android:textSize="16sp" />
 
@@ -61,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="Password"
+            android:hint="@string/Password"
             android:textColor="@color/textColor"
             android:textSize="16sp" />
 
@@ -70,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="Confirm Password"
+            android:hint="@string/ConfirmPassword"
             android:textColor="@color/textColor"
             android:textSize="16sp" />
 
@@ -79,7 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="Enter Phone Number"
+            android:hint="@string/EnterPhoneNumber"
             android:inputType="phone"
             android:textColor="@color/textColor"
             android:textSize="16sp" />

@@ -33,7 +33,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:text="Provide your Email and Password to Register"
             android:textColor="@color/textColor"
             android:textSize="16sp" />
@@ -42,8 +42,8 @@
             android:id="@+id/et_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:hint="Username"
+            android:layout_marginTop="15dp"
+            android:hint="@string/Username"
             android:textColor="@color/textColor"
             android:textSize="16sp" />
 
@@ -51,8 +51,8 @@
             android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="Email"
+            android:layout_marginTop="15dp"
+            android:hint="@string/Email"
             android:textColor="@color/textColor"
             android:textSize="16sp" />
 
@@ -60,8 +60,8 @@
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="Password"
+            android:layout_marginTop="15dp"
+            android:hint="@string/Password"
             android:textColor="@color/textColor"
             android:textSize="16sp" />
 
@@ -69,8 +69,8 @@
             android:id="@+id/et_confirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="Confirm Password"
+            android:layout_marginTop="15dp"
+            android:hint="@string/ConfirmPassword"
             android:textColor="@color/textColor"
             android:textSize="16sp" />
 
@@ -78,8 +78,8 @@
             android:id="@+id/et_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="Enter Address"
+            android:layout_marginTop="15dp"
+            android:hint="@string/EnterAddress"
             android:textColor="@color/textColor"
             android:textSize="16sp" />
 
@@ -87,8 +87,8 @@
             android:id="@+id/et_phoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="Enter Phone Number"
+            android:layout_marginTop="15dp"
+            android:hint="@string/EnterPhoneNumber"
             android:inputType="phone"
             android:textColor="@color/textColor"
             android:textSize="16sp" />

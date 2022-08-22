@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -65,19 +66,9 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
-        tv_loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-            }
-        });
+        tv_loginBtn.setOnClickListener(v -> startActivity(new Intent(RegisterActivity.this, LoginActivity.class)));
 
-        btn_Register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PerformAuth();
-            }
-        });
+        btn_Register.setOnClickListener(v -> PerformAuth());
 
     }
 
@@ -110,47 +101,47 @@ public class RegisterActivity extends AppCompatActivity {
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
 
-            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        progressDialog.dismiss();
-
-                        FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                        String userId = firebaseUser.getUid();
-
-                        reference = FirebaseDatabase.getInstance().getReference().child(USERS).child(userId);
-//                        HashMap<String, String> hashMap = new HashMap<>();
-//                        hashMap.put("id", userId);
-//                        hashMap.put("username", username);
-//                        hashMap.put("email", email);
-//                        hashMap.put("password", password);
-//                        hashMap.put("address", address);
-//                        hashMap.put("phoneNumber", phoneNumber);
-
-                        UserModel model = new UserModel();
-                        model.setAddress(address);
-                        model.setPhoneNumber(phoneNumber);
-                        model.setEmail(email);
-                        model.setPassword(password);
-                        model.setId(userId);
-                        model.setUserName(username);
-
-                        reference.setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    sendUserToMainActivity();
-                                }
-                            }
-                        });
 
 
-                        Toast.makeText(RegisterActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                    } else {
-                        progressDialog.dismiss();
-                        Toast.makeText(RegisterActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
-                    }
+            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+//                    Toast.makeText(RegisterActivity.this,"Hi3",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this,"Hi",Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+
+                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                    String userId = firebaseUser.getUid();
+
+                    reference = FirebaseDatabase.getInstance().getReference().child(USERS).child(userId);
+                    HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("id", userId);
+                    hashMap.put("username", username);
+                    hashMap.put("email", email);
+                    hashMap.put("password", password);
+                    hashMap.put("address", address);
+                    hashMap.put("phoneNumber", phoneNumber);
+
+                    UserModel model = new UserModel();
+                    model.setAddress(address);
+                    model.setPhoneNumber(phoneNumber);
+                    model.setEmail(email);
+                    model.setPassword(password);
+                    model.setId(userId);
+                    model.setUserName(username);
+
+                    reference.setValue(model).addOnCompleteListener(task1 -> {
+                        Toast.makeText(RegisterActivity.this,"Hi2",Toast.LENGTH_SHORT).show();
+                        if (task1.isSuccessful()) {
+                            Toast.makeText(RegisterActivity.this,"Hi1",Toast.LENGTH_SHORT).show();
+                            sendUserToMainActivity();
+                        }
+                    });
+
+
+                    Toast.makeText(RegisterActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                } else {
+                    progressDialog.dismiss();
+                    Toast.makeText(RegisterActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
                 }
             });
         }

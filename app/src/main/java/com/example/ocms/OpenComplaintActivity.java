@@ -30,13 +30,10 @@ public class OpenComplaintActivity extends AppCompatActivity {
         });
 
         btn_save = findViewById(R.id.btn_save);
-        btn_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressDialog.setTitle("Saving ");
-                progressDialog.setMessage("Saving....");
-                progressDialog.show();
-            }
+        btn_save.setOnClickListener(v -> {
+            progressDialog.setTitle("Saving ");
+            progressDialog.setMessage("Saving....");
+            progressDialog.show();
         });
     }
 }

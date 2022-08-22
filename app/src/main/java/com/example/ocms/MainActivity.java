@@ -37,6 +37,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -106,21 +107,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         rv = findViewById(R.id.rv_showAllFood);
+
+        FirebaseApp.initializeApp(this);
+
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
         progressDialog = new ProgressDialog(MainActivity.this);
 
-//        getUser();
-//        getAllFood();
+        getUser();
+        getAllFood();
 
         fab_createFood = findViewById(R.id.fab_createFood);
-        fab_createFood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createDialog();
-            }
-        });
+        fab_createFood.setOnClickListener(v -> createDialog());
 
     }
 
@@ -144,27 +143,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         storageReference = FirebaseStorage.getInstance().getReference().child("Uploads");
 
-        iv_complaintImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, STORAGE_PERMISSION_CODE);
-            }
-        });
+        iv_complaintImage.setOnClickListener(v -> checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, STORAGE_PERMISSION_CODE));
         alertDialog.show();
-        btn_create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String complaintDescription = et_description.getText().toString();
-                String foodImage = imageString;
-                if (complaintDescription.isEmpty()) {
-                    et_description.setError("Empty description");
-                } else {
-                    progressDialog.setMessage("Adding Your Complaint");
-                    progressDialog.setTitle("Adding...");
-                    progressDialog.setCanceledOnTouchOutside(false);
-                    createFood(complaintDescription, department, foodImage);
-                    alertDialog.dismiss();
-                }
+        btn_create.setOnClickListener(v -> {
+            String complaintDescription = et_description.getText().toString();
+            String foodImage = imageString;
+            if (complaintDescription.isEmpty()) {
+                et_description.setError("Empty description");
+            } else {
+                progressDialog.setMessage("Adding Your Complaint");
+                progressDialog.setTitle("Adding...");
+                progressDialog.setCanceledOnTouchOutside(false);
+                createFood(complaintDescription, department, foodImage);
+                alertDialog.dismiss();
             }
         });
     }
@@ -189,40 +180,31 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         if (imageUri != null) {
             final StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
             uploadTask = fileReference.putFile(imageUri);
-            uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                @Override
-                public Task<Uri> then(@NonNull Task task) throws Exception {
-                    if (!task.isSuccessful()) {
-                        throw task.getException();
-                    }
-                    return fileReference.getDownloadUrl();
+            uploadTask.continueWithTask((Continuation<UploadTask.TaskSnapshot, Task<Uri>>) task -> {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
                 }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful()) {
-                        try {
-                            Uri downloadingUri = task.getResult();
-                            Log.d("TAG", "onComplete: uri completed");
-                            String mUri = downloadingUri.toString();
-                            imageString = mUri;
-//                            Glide.with(MainActivity.this).load(imageUri).into(iv_complaintImage);
-                        } catch (Exception e) {
-                            Log.d("TAG1", "error Message: " + e.getMessage());
-                            Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                        pd.dismiss();
-                    } else {
-                        Toast.makeText(MainActivity.this, "Failed here", Toast.LENGTH_SHORT).show();
-                        pd.dismiss();
+                return fileReference.getDownloadUrl();
+            }).addOnCompleteListener((OnCompleteListener<Uri>) task -> {
+                if (task.isSuccessful()) {
+                    try {
+                        Uri downloadingUri = task.getResult();
+                        Log.d("TAG", "onComplete: uri completed");
+                        String mUri = downloadingUri.toString();
+                        imageString = mUri;
+                        Glide.with(MainActivity.this).load(imageUri).into(iv_complaintImage);
+                    } catch (Exception e) {
+                        Log.d("TAG1", "error Message: " + e.getMessage());
+                        Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    pd.dismiss();
+                } else {
+                    Toast.makeText(MainActivity.this, "Failed here", Toast.LENGTH_SHORT).show();
                     pd.dismiss();
                 }
+            }).addOnFailureListener(e -> {
+                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                pd.dismiss();
             });
         } else {
             Toast.makeText(MainActivity.this, "No image Selected", Toast.LENGTH_SHORT).show();

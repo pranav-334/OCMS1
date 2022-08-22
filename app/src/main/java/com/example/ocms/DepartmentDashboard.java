@@ -1,6 +1,7 @@
 package com.example.ocms;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +27,7 @@ public class DepartmentDashboard extends AppCompatActivity {
     DatabaseReference reference;
     FirebaseUser firebaseUser;
 
-    DepartmentUser model = null;
+    DepartmentUser model = new DepartmentUser();
 
     String department = "";
 
@@ -56,6 +57,7 @@ public class DepartmentDashboard extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     model = snapshot.getValue(DepartmentUser.class);
+//                    Toast.makeText(DepartmentDashboard.this,model.getUserName(),Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -70,15 +72,23 @@ public class DepartmentDashboard extends AppCompatActivity {
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUser.getUid() != null) {
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(RegisterActivity.COMPLAINT).child(model.getUserName());
+//            if(model == null) {
+//                Toast.makeText(DepartmentDashboard.this,"NULL",Toast.LENGTH_SHORT).show();
+//            } else {
+//                Toast.makeText(DepartmentDashboard.this,model.getUserName(),Toast.LENGTH_SHORT).show();
+//            }
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(RegisterActivity.COMPLAINT).child(firebaseUser.getUid());
             reference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     mList.clear();
+                    String res=""+snapshot.getChildrenCount();
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         complaint model = dataSnapshot.getValue(complaint.class);
+                        res+=model.getId();
                         mList.add(model);
                     }
+//                    Toast.makeText(DepartmentDashboard.this,res,Toast.LENGTH_SHORT).show();
                     adapter = new ShowAllComplaintAdapter(DepartmentDashboard.this, mList);
                     rv.setAdapter(adapter);
                 }

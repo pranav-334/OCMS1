@@ -92,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                     sendUserToMainActivity();
                     Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                    sendUserToMainActivity();
                 } else {
                     progressDialog.dismiss();
                     Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
@@ -104,7 +105,6 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-
     }
 
 }

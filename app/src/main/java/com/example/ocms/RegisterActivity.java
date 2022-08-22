@@ -101,18 +101,17 @@ public class RegisterActivity extends AppCompatActivity {
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
 
-
-
-            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task ->{
                 if (task.isSuccessful()) {
 //                    Toast.makeText(RegisterActivity.this,"Hi3",Toast.LENGTH_SHORT).show();
-                    Toast.makeText(RegisterActivity.this,"Hi",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RegisterActivity.this,"Hi",Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
 
                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
                     String userId = firebaseUser.getUid();
 
                     reference = FirebaseDatabase.getInstance().getReference().child(USERS).child(userId);
+
                     HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("id", userId);
                     hashMap.put("username", username);
@@ -129,16 +128,18 @@ public class RegisterActivity extends AppCompatActivity {
                     model.setId(userId);
                     model.setUserName(username);
 
+
                     reference.setValue(model).addOnCompleteListener(task1 -> {
-                        Toast.makeText(RegisterActivity.this,"Hi2",Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(RegisterActivity.this,"Hi2",Toast.LENGTH_SHORT).show();
                         if (task1.isSuccessful()) {
-                            Toast.makeText(RegisterActivity.this,"Hi1",Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RegisterActivity.this,"Hi1",Toast.LENGTH_SHORT).show();
                             sendUserToMainActivity();
                         }
                     });
 
 
                     Toast.makeText(RegisterActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+//                    sendUserToMainActivity();
                 } else {
                     progressDialog.dismiss();
                     Toast.makeText(RegisterActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();

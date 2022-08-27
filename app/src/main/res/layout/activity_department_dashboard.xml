@@ -27,9 +27,9 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginLeft="100dp"
-            android:text="Water Complaints"
+            android:text="Complaints"
             android:textColor="@color/textColor"
-            android:textSize="28sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
     </RelativeLayout>

@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        System.out.println("JIII");
+        //System.out.println("JIII");
 
         rv = findViewById(R.id.rv_showAllFood);
 
@@ -286,7 +286,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void getUser() {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUser.getUid() != null) {
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(RegisterActivity.USERS).child(firebaseUser.getUid());
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(RegisterActivity.USERS);//.child(firebaseUser.getUid());
             reference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -315,9 +315,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private void getAllFood() {
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (firebaseUser.getUid() != null) {
+        if (firebaseUser!= null) {
 //            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(RegisterActivity.COMPLAINT).child(model.getUserName());
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(RegisterActivity.COMPLAINT).child(firebaseUser.getUid());
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(RegisterActivity.COMPLAINT);
 
             reference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

@@ -57,35 +57,16 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link NewComplaintFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class NewComplaintFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-//     TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public NewComplaintFragment() {
-        // Required empty public constructor
-    }
+    public NewComplaintFragment() {}
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment NewComplaintFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static NewComplaintFragment newInstance(String param1, String param2) {
         NewComplaintFragment fragment = new NewComplaintFragment();
         Bundle args = new Bundle();
@@ -117,8 +98,6 @@ public class NewComplaintFragment extends Fragment implements AdapterView.OnItem
     private String imageString;
     private StorageTask uploadTask;
 
-    DatabaseReference reference;
-    FirebaseUser firebaseUser;
 
     UserModel model = null;
 
@@ -132,7 +111,6 @@ public class NewComplaintFragment extends Fragment implements AdapterView.OnItem
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_complaint, container, false);
 
         rv = view.findViewById(R.id.rv_showAllFood);
@@ -248,7 +226,7 @@ public class NewComplaintFragment extends Fragment implements AdapterView.OnItem
     }
 
     public void checkPermission(String permission, int requestCode) {
-        // Checking if permission is not granted
+
         if (ContextCompat.checkSelfPermission(getContext(), permission) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{permission}, requestCode);
         } else {

@@ -20,13 +20,12 @@ public class OpenComplaintActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
 
         btn_markAsInProgress = findViewById(R.id.btn_markasInProgress);
-        btn_markAsInProgress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressDialog.setTitle("Marking as In Progress");
-                progressDialog.setMessage("Marking....");
-                progressDialog.show();
-            }
+
+        btn_markAsInProgress.setOnClickListener(v -> {
+            progressDialog.setTitle("Marking as In Progress");
+            progressDialog.setMessage("Marking....");
+            progressDialog.show();
+            progressDialog.dismiss();
         });
 
         btn_save = findViewById(R.id.btn_save);
@@ -34,6 +33,7 @@ public class OpenComplaintActivity extends AppCompatActivity {
             progressDialog.setTitle("Saving ");
             progressDialog.setMessage("Saving....");
             progressDialog.show();
+            progressDialog.dismiss();
         });
     }
 }

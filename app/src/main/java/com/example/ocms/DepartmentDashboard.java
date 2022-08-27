@@ -24,8 +24,6 @@ import java.util.List;
 
 public class DepartmentDashboard extends AppCompatActivity {
 
-    DatabaseReference reference;
-    FirebaseUser firebaseUser;
 
     DepartmentUser model = new DepartmentUser();
 
@@ -77,15 +75,15 @@ public class DepartmentDashboard extends AppCompatActivity {
 //            } else {
 //                Toast.makeText(DepartmentDashboard.this,model.getUserName(),Toast.LENGTH_SHORT).show();
 //            }
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(RegisterActivity.COMPLAINT).child(firebaseUser.getUid());
-            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(RegisterActivity.COMPLAINT);
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     mList.clear();
-                    String res=""+snapshot.getChildrenCount();
+//                    String res=""+snapshot.getChildrenCount();
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         complaint model = dataSnapshot.getValue(complaint.class);
-                        res+=model.getId();
+//                        res+=model.getId();
                         mList.add(model);
                     }
 //                    Toast.makeText(DepartmentDashboard.this,res,Toast.LENGTH_SHORT).show();

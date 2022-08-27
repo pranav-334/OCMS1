@@ -16,7 +16,7 @@
             android:id="@+id/tv_restAppBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Water Complaint"
+            android:text="Complaint"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -41,7 +41,8 @@
                 android:layout_height="200dp"
                 android:layout_marginTop="30dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/dirtyriver" />
+                android:src="@drawable/dirtyriver"
+                android:visibility="invisible" />
 
             <LinearLayout
                 android:id="@+id/ll_usernameCSE"
@@ -57,7 +58,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Water"
                     android:textAlignment="center"
                     android:textColor="@color/textColor"
                     android:textSize="24sp"

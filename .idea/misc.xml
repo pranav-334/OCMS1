@@ -4,18 +4,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Sai Pranav Godishala/AndroidStudioProjects/OCMS/app/src/main/res/drawable/tab_color.xml" value="0.2265" />
-        <entry key="..\:/Users/Sai Pranav Godishala/AndroidStudioProjects/OCMS/app/src/main/res/layout/activity_dashboard.xml" value="0.152" />
+        <entry key="..\:/Users/Sai Pranav Godishala/AndroidStudioProjects/OCMS/app/src/main/res/layout/activity_dashboard.xml" value="0.2" />
         <entry key="..\:/Users/Sai Pranav Godishala/AndroidStudioProjects/OCMS/app/src/main/res/layout/activity_department_dashboard.xml" value="0.2" />
         <entry key="..\:/Users/Sai Pranav Godishala/AndroidStudioProjects/OCMS/app/src/main/res/layout/activity_department_login.xml" value="0.2" />
         <entry key="..\:/Users/Sai Pranav Godishala/AndroidStudioProjects/OCMS/app/src/main/res/layout/activity_department_register.xml" value="0.2" />
         <entry key="..\:/Users/Sai Pranav Godishala/AndroidStudioProjects/OCMS/app/src/main/res/layout/activity_login.xml" value="0.25" />
-        <entry key="..\:/Users/Sai Pranav Godishala/AndroidStudioProjects/OCMS/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Sai Pranav Godishala/AndroidStudioProjects/OCMS/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/Sai Pranav Godishala/AndroidStudioProjects/OCMS/app/src/main/res/layout/activity_open_complaint.xml" value="0.2" />
         <entry key="..\:/Users/Sai Pranav Godishala/AndroidStudioProjects/OCMS/app/src/main/res/layout/activity_register.xml" value="0.2" />
-        <entry key="..\:/Users/Sai Pranav Godishala/AndroidStudioProjects/OCMS/app/src/main/res/layout/activity_reset_password.xml" value="0.16799999999999998" />
-        <entry key="..\:/Users/Sai Pranav Godishala/AndroidStudioProjects/OCMS/app/src/main/res/layout/alert_add_complaint.xml" value="0.176" />
+        <entry key="..\:/Users/Sai Pranav Godishala/AndroidStudioProjects/OCMS/app/src/main/res/layout/activity_reset_password.xml" value="0.2" />
+        <entry key="..\:/Users/Sai Pranav Godishala/AndroidStudioProjects/OCMS/app/src/main/res/layout/alert_add_complaint.xml" value="0.2" />
         <entry key="..\:/Users/Sai Pranav Godishala/AndroidStudioProjects/OCMS/app/src/main/res/layout/complaint_list_item.xml" value="0.2" />
-        <entry key="..\:/Users/Sai Pranav Godishala/AndroidStudioProjects/OCMS/app/src/main/res/layout/fragment_complaint_status.xml" value="0.16799999999999998" />
+        <entry key="..\:/Users/Sai Pranav Godishala/AndroidStudioProjects/OCMS/app/src/main/res/layout/fragment_complaint_status.xml" value="0.2" />
         <entry key="..\:/Users/Sai Pranav Godishala/AndroidStudioProjects/OCMS/app/src/main/res/layout/fragment_new_complaint.xml" value="0.176" />
         <entry key="..\:/Users/Sai Pranav Godishala/AndroidStudioProjects/OCMS/app/src/main/res/menu/menu.xml" value="0.25" />
       </map>
